@@ -1,0 +1,16 @@
+{
+  "usuarioValido": {
+    "email": "teste@teste.com",
+    "senha": "teste123"
+  },
+  "usuarioInvalido": {
+    "email": "invalido@teste.com",
+    "senha": "senhaerrada"
+  },
+  "novoUsuario": {
+    "nome": "Teste Cypress",
+    "sobrenome": "Automação",
+    "email": "cypress@teste.com",
+    "senha": "cypress123"
+  }
+}

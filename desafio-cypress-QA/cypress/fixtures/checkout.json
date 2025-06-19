@@ -1,0 +1,11 @@
+{
+    "dadosCheckout": {
+      "nome": "João",
+      "sobrenome": "Silva",
+      "empresa": "Empresa Teste",
+      "endereco": "Rua Teste, 123",
+      "cidade": "São Paulo",
+      "cep": "01234-567",
+      "telefone": "(11) 99999-9999"
+    }
+  }
