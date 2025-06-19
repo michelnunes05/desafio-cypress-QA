@@ -1,0 +1,18 @@
+{
+  "valido": {
+    "email": "aluno_ebac@teste.com",
+    "password": "teste@teste"
+  },
+  "invalido_email": {
+    "email": "email_inexistente@teste.com",
+    "password": "senhaqualquer"
+  },
+  "invalido_senha": {
+    "email": "aluno_ebac@teste.com",
+    "password": "senhaerrada"
+  },
+  "em_branco": {
+    "email": "",
+    "password": ""
+  }
+}
