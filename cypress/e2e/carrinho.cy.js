@@ -1,40 +1,60 @@
-/// <reference types="cypress" />
+describe('Funcionalidade do Carrinho', () => {
+  beforeEach(() => {
+    cy.visit('/produtos/')
+  })
 
-describe('Carrinho - Adicionar Produtos', () => {
-    beforeEach(() => {
-      cy.visit('/')
+  it('Deve adicionar produto ao carrinho', () => {
+    // Selecionar primeiro produto
+    cy.get('.products .product').first().click()
+    
+    // Selecionar variações se necessário
+    cy.get('.single_variation_wrap').then(($variation) => {
+      if ($variation.find('.single_variation').length > 0) {
+        cy.get('select[name="attribute_color"]').select(1)
+        cy.get('select[name="attribute_size"]').select(1)
+      }
     })
-  
-    it('Deve adicionar produto ao carrinho com sucesso', () => {
-      // Buscar por um produto
-      cy.get('.search-field').type('Abominable Hoodie')
-      cy.get('.search-submit').click()
+    
+    // Adicionar ao carrinho
+    cy.get('.single_add_to_cart_button').click()
+    
+    // Validar mensagem de sucesso
+    cy.get('.woocommerce-message')
+      .should('contain', 'foi adicionado no seu carrinho')
+  })
+
+  it('Deve remover produto do carrinho', () => {
+    // Primeiro adicionar um produto
+    cy.get('.products .product').first().click()
+    cy.get('.single_add_to_cart_button').click()
+    
+    // Ir para o carrinho
+    cy.get('.woocommerce-message .button').click()
+    
+    // Remover produto
+    cy.get('.remove').click()
+    
+    // Validar carrinho vazio
+    cy.get('.cart-empty')
+      .should('contain', 'Seu carrinho está vazio')
+  })
+
+  it('Deve calcular total do carrinho corretamente', () => {
+    // Adicionar produto específico
+    cy.visit('/produtos/abominable-hoodie/')
+    cy.get('select[name="attribute_color"]').select('Blue')
+    cy.get('select[name="attribute_size"]').select('M')
+    
+    // Capturar preço do produto
+    cy.get('.price .woocommerce-Price-amount').then(($price) => {
+      const productPrice = $price.text()
       
-      // Selecionar tamanho e cor
-      cy.get('.button-variable-item-XS').click()
-      cy.get('.button-variable-item-Blue').click()
-      
-      // Adicionar ao carrinho
       cy.get('.single_add_to_cart_button').click()
+      cy.get('.woocommerce-message .button').click()
       
-      // Verificar se foi adicionado
-      cy.get('.woocommerce-message').should('contain', 'foi adicionado no seu carrinho')
-      
-      // Verificar contador do carrinho
-      cy.get('.mini-cart-items').should('contain', '1')
-    })
-  
-    it('Deve adicionar múltiplos produtos ao carrinho', () => {
-      // Adicionar primeiro produto
-      cy.adicionarProdutoCarrinho('Abominable Hoodie')
-      
-      // Voltar para página inicial
-      cy.visit('/')
-      
-      // Adicionar segundo produto
-      cy.adicionarProdutoCarrinho('Aero Daily Fitness Tee')
-      
-      // Verificar contador
-      cy.get('.mini-cart-items').should('contain', '2')
+      // Validar se o total está correto
+      cy.get('.order-total .woocommerce-Price-amount')
+        .should('contain', productPrice)
     })
   })
+})

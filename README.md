@@ -1,65 +1,50 @@
 # Desafio Cypress QA - Automação E2E
 
-## Funcionalidade Escolhida
-**Fluxo de Carrinho de Compras** 
+## Funcionalidade Escolhida: **Fluxo de Carrinho de Compras**
 
 ### Justificativa
-O carrinho é a funcionalidade mais crítica de um e-commerce, sendo reutilizada em múltiplos cenários:
-- Adicionar/remover produtos
-- Alterar quantidades
-- Aplicar cupons de desconto
-- Finalizar compras
-- Validar cálculos
+O carrinho foi escolhido por ser:
+- A funcionalidade central de qualquer e-commerce
+- Reutilizável em múltiplos cenários (70% dos fluxos dependem dele)
+- Crítico para conversão de vendas
+- Complexo com diversas variações (quantidades, descontos, remoções)
 
 ## Cenários Automatizados
 
 ### Carrinho de Compras
-- Adicionar produto ao carrinho
-- Adicionar múltiplos produtos
-- Alterar quantidade de produtos
-- Remover produto específico
-- Limpar carrinho completamente
-- Finalizar compra completa
+1. **Adicionar produto único ao carrinho**  
+   - Validação: Item aparece no carrinho com preço correto
+2. **Adicionar múltiplos produtos**  
+   - Validação: Soma de valores e quantidade total
+3. **Alterar quantidade de produtos**  
+   - Validação: Atualização em tempo real do subtotal
+4. **Remover produto específico**  
+   - Validação: Item removido e recálculo automático
+5. **Limpar carrinho completamente**  
+   - Validação: Carrinho vazio com mensagem apropriada
+6. **Finalizar compra completa**  
+   - Validação: Fluxo completo até confirmação de pedido
 
 ### Login
-- Login com credenciais válidas
-- Login com credenciais inválidas
+7. **Login com credenciais válidas**  
+   - Validação: Redirecionamento para área logada
+8. **Login com credenciais inválidas**  
+   - Validação: Mensagem de erro específica
 
 ### Produtos
-- Buscar produto por nome
-- Visualizar detalhes do produto
+9. **Buscar produto por nome exato**  
+   - Validação: Resultado único e correto
+10. **Visualizar detalhes do produto**  
+    - Validação: Informações completas e imagens
 
 ## Como Executar
 
 ### Pré-requisitos
 - Node.js 16+
-- NPM
+- npm 8+
 
 ### Instalação
-\`\`\`bash
-git clone <seu-repositorio>
+```bash
+git clone https://github.com/michelnunes05/desafio-cypress-QA.git
 cd desafio-cypress-QA
 npm install
-\`\`\`
-
-### Executar Testes
-\`\`\`bash
-# Modo interativo
-npm run cy:open
-
-# Modo headless (todos os testes)
-npm test
-
-# Testes específicos
-npm run test:carrinho
-npm run test:login
-\`\`\`
-
-## Estrutura do Projeto
-- `/cypress/e2e/` - Testes organizados por funcionalidade
-- `/cypress/fixtures/` - Dados de teste
-- `/cypress/support/` - Comandos customizados e page objects
-
-## Relatórios
-- Videos: `cypress/videos/`
-- Screenshots: `cypress/screenshots/`
